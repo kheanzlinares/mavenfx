@@ -30,11 +30,12 @@ public class App extends Application {
         passwordField = new PasswordField();
         passwordField.setPromptText("password");
         button = new Button("Log in");
-        button.setVisible(false);
 
-        StringProperty passwordFieldProperty = passwordField.textProperty();
+        button.setDisable(true);
 
-        //visiblePassword.textProperty().bind(passwordFieldProperty);
+        if(isValid(passwordField)){
+            button.setDisable(false);
+        }
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
@@ -53,6 +54,64 @@ public class App extends Application {
         window.setScene(scene);
         window.show();
 
+    }
 
+    public static boolean isValid (PasswordField password){
+        //checking for password length
+
+        if(!(password.getText().length() >= 8)){
+            return false;
+        }
+        if (!(password.getText().contains("@")|| password.getText().contains("#")
+                || password.getText().contains("!") || password.getText().contains("~")
+                || password.getText().contains("$") || password.getText().contains("%")
+                || password.getText().contains("^") || password.getText().contains("&")
+                || password.getText().contains("*") || password.getText().contains("(")
+                || password.getText().contains(")") || password.getText().contains("-")
+                || password.getText().contains("+") || password.getText().contains("/")
+                || password.getText().contains(":") || password.getText().contains(".")
+                || password.getText().contains(", ") || password.getText().contains("<")
+                || password.getText().contains(">") || password.getText().contains("?")
+                || password.getText().contains("|"))) {
+            return false;
+        }
+
+        if(true){
+            int count = 0;
+
+            for (int i = 65; i <= 122; i++) {
+
+                // type casting
+                char c = (char)i;
+
+                String alphabet = Character.toString(c);
+                if (password.getText().contains(alphabet)) {
+                    count = 1;
+                }
+            }
+            if (count == 0) {
+                return false;
+            }
+        }
+
+        if (true) {
+            int count = 0;
+
+            // check digits from 0 to 9
+            for (int i = 0; i <= 9; i++) {
+
+                // to convert int to string
+                String numbers = Integer.toString(i);
+
+                if (password.getText().contains(numbers)) {
+                    count = 1;
+                }
+            }
+
+            if (count == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
